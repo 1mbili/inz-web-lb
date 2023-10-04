@@ -14,7 +14,7 @@ platforms:
     privileged: true
     pre_build_image: true
     groups:
-     - default
+      - default
 provisioner:
   name: ansible
   inventory:
@@ -22,4 +22,3 @@ provisioner:
       hosts: test_inventory.ini
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-converge.yml}
-  
