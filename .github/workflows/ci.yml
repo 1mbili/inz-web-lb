@@ -1,0 +1,72 @@
+---
+name: CI
+"on":
+  pull_request:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "30 5 * * 3"
+
+defaults:
+  run:
+    working-directory: "1mbili.my_web"
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+        with:
+          path: "1mbili.my_web"
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Install test dependencies.
+        run: pip3 install yamllint
+
+      - name: Lint code.
+        run: |
+          yamllint .
+
+  molecule:
+    name: Molecule
+    runs-on: ubuntu-latest
+    environment: AZURE_TENANT_ID
+    strategy:
+      matrix:
+        distro:
+          - ubuntu2204
+
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v2
+        with:
+          path: "1mbili.my_web"
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.x"
+
+      - name: Install test dependencies.
+        run: pip3 install ansible molecule molecule-plugins[docker] docker
+
+      - name: Install azure collection dependencies
+        run: pip3 install -r https://raw.githubusercontent.com/ansible-collections/azure/dev/requirements-azure.txt
+
+      - name: Run Molecule tests.
+        run: molecule converge
+        env:
+          PY_COLORS: "1"
+          ANSIBLE_FORCE_COLOR: "1"
+          MOLECULE_DISTRO: ${{ matrix.distro }}
+          AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          AZURE_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          KEY_VAULT_NAME: ${{ secrets.KEY_VAULT_NAME }}

@@ -1,0 +1,13 @@
+---
+- name: Fail if molecule group is missing
+  hosts: default
+  tasks:
+    - name: Install python3 with apt
+      ansible.builtin.apt:
+        name: python3
+        state: present
+      become: true
+
+    - name: Include my-lb role
+      ansible.builtin.include_role:
+        name: 1mbili.my-lb
