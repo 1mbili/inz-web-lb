@@ -16,11 +16,6 @@
     path: /etc/nginx/conf.d/default.conf
     state: absent
 
-- name: Print debug Env variables
-  ansible.builtin.debug:
-    msg: "{{ vault_url }} : {{ client_id }} : {{ client_secret }} : {{ tenant_id }}"
-
-
 - name: Add nginx certs
   ansible.builtin.copy:
     content: "{{ item.variable }}"
