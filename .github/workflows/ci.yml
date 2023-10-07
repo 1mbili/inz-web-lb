@@ -20,7 +20,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: "1mbili.my_web"
+          path: "1mbili.my-lb"
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
@@ -47,7 +47,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: "1mbili.my_web"
+          path: "1mbili.my-lb"
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
