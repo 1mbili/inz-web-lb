@@ -16,6 +16,17 @@
     path: /etc/nginx/conf.d/default.conf
     state: absent
 
+- name: Add nginx certs
+  ansible.builtin.copy:
+    content: "{{ item.variable }}"
+    dest: "{{ item.dest }}"
+    mode: '0777'
+    owner: root
+  loop:
+    - { dest: "/etc/nginx/privkey.pem", variable: "{{ cert_key }}" }
+    - { dest: "/etc/nginx/fullchain.pem", variable: "{{ cert }}" }
+  no_log: true
+
 - name: Restart nginx
   ansible.builtin.service:
     name: nginx
