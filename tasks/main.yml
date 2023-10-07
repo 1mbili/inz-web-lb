@@ -25,7 +25,7 @@
   loop:
     - {dest: "/etc/nginx/privkey.pem", variable: "{{ cert_key }}"}
     - {dest: "/etc/nginx/fullchain.pem", variable: "{{ cert }}"}
-  no_log: true
+  #no_log: true
 
 - name: Restart nginx
   ansible.builtin.service:
