@@ -20,11 +20,11 @@
   ansible.builtin.copy:
     content: "{{ item.variable }}"
     dest: "{{ item.dest }}"
-    mode: '0777'
+    mode: "0777"
     owner: root
   loop:
-    - { dest: "/etc/nginx/privkey.pem", variable: "{{ cert_key }}" }
-    - { dest: "/etc/nginx/fullchain.pem", variable: "{{ cert }}" }
+    - {dest: "/etc/nginx/privkey.pem", variable: "{{ cert_key }}"}
+    - {dest: "/etc/nginx/fullchain.pem", variable: "{{ cert }}"}
   no_log: true
 
 - name: Restart nginx
