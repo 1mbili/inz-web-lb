@@ -8,9 +8,9 @@
         state: present
       become: true
 
-    - name: Include my-lb role
+    - name: Include my_lb role
       ansible.builtin.include_role:
-        name: 1mbili.my-lb
+        name: mbili.my_lb
 
   post_tasks:
     - name: Wait for the web server to start

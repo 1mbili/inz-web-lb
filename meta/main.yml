@@ -3,8 +3,9 @@ collections:
   - azure.azcollection
 
 galaxy_info:
-  role_name: my-lb
-  author: 1mbili
+  role_name: my_lb
+  namespace: mbili
+  author: mbili
   description: Simple web app
   license: MIT
   min_ansible_version: "2.10"

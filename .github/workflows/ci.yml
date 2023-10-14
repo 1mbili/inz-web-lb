@@ -10,7 +10,7 @@ name: CI
 
 defaults:
   run:
-    working-directory: "1mbili.my-lb"
+    working-directory: "mbili.my_lb"
 
 jobs:
   lint:
@@ -20,7 +20,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: "1mbili.my-lb"
+          path: "mbili.my_lb"
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2
@@ -47,7 +47,7 @@ jobs:
       - name: Check out the codebase.
         uses: actions/checkout@v2
         with:
-          path: "1mbili.my-lb"
+          path: "mbili.my_lb"
 
       - name: Set up Python 3.
         uses: actions/setup-python@v2

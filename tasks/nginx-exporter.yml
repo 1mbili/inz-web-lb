@@ -26,18 +26,19 @@
     state: directory
     owner: "{{ nginx_exporter_user }}"
     group: "{{ nginx_exporter_user }}"
-    mode: 0755
+    mode: "0755"
 
 - name: Download nginx-exporter
   ansible.builtin.get_url:
     url: https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v0.11.0/nginx-prometheus-exporter_0.11.0_linux_amd64.tar.gz
     dest: /opt/nginx/nginx-exporter.tar.gz
+    mode: "0755"
 
 - name: Extract nginx-exporter
   ansible.builtin.unarchive:
     src: /opt/nginx/nginx-exporter.tar.gz
     dest: /opt/nginx/
-    remote_src: yes
+    remote_src: true
     owner: "{{ nginx_exporter_user }}"
     group: "{{ nginx_exporter_user }}"
 
@@ -47,7 +48,7 @@
     dest: /etc/systemd/system/nginx-exporter.service
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
 
 - name: Restart nginx
   ansible.builtin.service:

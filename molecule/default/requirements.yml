@@ -1,2 +1,3 @@
 ---
-- role: nginxinc.nginx
+roles:
+  - name: nginxinc.nginx
