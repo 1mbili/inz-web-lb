@@ -22,5 +22,5 @@
 
     - name: Test exporter is running
       ansible.builtin.uri:
-        url: http://127.0.0.1:9113/metrics 
+        url: http://127.0.0.1:9113/metrics
         status_code: 200

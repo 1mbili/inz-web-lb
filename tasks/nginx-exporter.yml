@@ -1,12 +1,11 @@
 ---
-
 - name: Copy nginx monitoring config
   ansible.builtin.copy:
     src: nginx-export.conf
     dest: /etc/nginx/conf.d/nginx-exporter.conf
     owner: root
     group: root
-    mode: 0644
+    mode: "0644"
 
 - name: Create nginx-exporter group
   group:
@@ -61,4 +60,3 @@
     name: nginx-exporter
     state: started
     enabled: true
-  
