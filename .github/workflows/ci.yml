@@ -30,11 +30,11 @@ jobs:
       - name: Install test dependencies.
         run: pip3 install yamllint ansible-lint
 
-      - name: Lint code.
+      - name: Run yamllint.
         run: |
           yamllint .
 
-      - name: Lint code.
+      - name: Run ansible-lint.
         run: |
           ansible-lint .
 
@@ -65,7 +65,7 @@ jobs:
         run: pip3 install -r https://raw.githubusercontent.com/ansible-collections/azure/dev/requirements-azure.txt
 
       - name: Run Molecule tests.
-        run: molecule converge
+        run: molecule test
         env:
           PY_COLORS: "1"
           ANSIBLE_FORCE_COLOR: "1"
