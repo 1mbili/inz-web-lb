@@ -33,12 +33,11 @@ jobs:
       - name: Lint code.
         run: |
           yamllint .
-        
+
       - name: Lint code.
         run: |
-            ansible-lint .      
+          ansible-lint .
 
-          
   molecule:
     name: Molecule
     runs-on: ubuntu-latest
