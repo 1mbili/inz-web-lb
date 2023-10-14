@@ -1,0 +1,64 @@
+---
+
+- name: Copy nginx monitoring config
+  ansible.builtin.copy:
+    src: nginx-export.conf
+    dest: /etc/nginx/conf.d/nginx-exporter.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Create nginx-exporter group
+  group:
+    name: "{{ nginx_exporter_user }}"
+    state: present
+
+- name: Create nginx-exporter user
+  user:
+    name: "{{ nginx_exporter_user }}"
+    group: "{{ nginx_exporter_user }}"
+    shell: /bin/false
+    system: yes
+    state: present
+
+- name: Create /opt/nginx dir
+  ansible.builtin.file:
+    path: /opt/nginx
+    state: directory
+    owner: "{{ nginx_exporter_user }}"
+    group: "{{ nginx_exporter_user }}"
+    mode: 0755
+
+- name: Download nginx-exporter
+  ansible.builtin.get_url:
+    url: https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v0.11.0/nginx-prometheus-exporter_0.11.0_linux_amd64.tar.gz
+    dest: /opt/nginx/nginx-exporter.tar.gz
+
+- name: Extract nginx-exporter
+  ansible.builtin.unarchive:
+    src: /opt/nginx/nginx-exporter.tar.gz
+    dest: /opt/nginx/
+    remote_src: yes
+    owner: "{{ nginx_exporter_user }}"
+    group: "{{ nginx_exporter_user }}"
+
+- name: Cretate systemd nginx-exporter service
+  ansible.builtin.template:
+    src: nginx-exporter.service.j2
+    dest: /etc/systemd/system/nginx-exporter.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Restart nginx
+  ansible.builtin.service:
+    name: nginx
+    state: restarted
+    enabled: true
+
+- name: Enable nginx systemd service
+  ansible.builtin.service:
+    name: nginx-exporter
+    state: started
+    enabled: true
+  

@@ -1,0 +1,18 @@
+ [Unit]
+ Description=Nginx exporter
+ Wants=network-online.target
+ After=network-online.target
+
+ StartLimitIntervalSec=0
+
+[Service]
+User={{ nginx_exporter_user }}
+Group={{ nginx_exporter_user }}
+Type=simple
+Restart=on-failture
+RestartSec=5s
+
+ExecStart=/opt/nginx/nginx-prometheus-exporter --nginx.scrape-uri=http://127.0.0.1:81/nginx_status
+
+[Install]
+WantedBy=multi-user.target

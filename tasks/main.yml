@@ -25,7 +25,13 @@
   loop:
     - {dest: "/etc/nginx/privkey.pem", variable: "{{ cert_key }}"}
     - {dest: "/etc/nginx/fullchain.pem", variable: "{{ cert }}"}
-   #no_log: true
+
+- name: Install nginx-exporter
+  ansible.builtin.include_tasks:
+    file: nginx-exporter.yml
+    apply:
+      tags:
+        - nginx-exporter
 
 - name: Restart nginx
   ansible.builtin.service:

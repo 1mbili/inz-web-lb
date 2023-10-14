@@ -11,3 +11,16 @@
     - name: Include my-lb role
       ansible.builtin.include_role:
         name: 1mbili.my-lb
+
+  post_tasks:
+    - name: Wait for the web server to start
+      ansible.builtin.wait_for:
+        host: 127.0.0.1
+        port: 81
+        state: drained
+        delay: 10
+
+    - name: Test exporter is running
+      ansible.builtin.uri:
+        url: http://127.0.0.1:9113/metrics 
+        status_code: 200
