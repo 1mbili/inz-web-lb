@@ -2,6 +2,10 @@
 collections:
   - azure.azcollection
 
+dependencies:
+  - role: nginxinc.nginx
+    version: 0.24.1
+
 galaxy_info:
   role_name: my_lb
   namespace: mbili
