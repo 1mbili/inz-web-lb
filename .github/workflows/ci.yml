@@ -41,7 +41,7 @@ jobs:
   molecule:
     name: Molecule
     runs-on: ubuntu-latest
-    environment: AZURE_TENANT_ID
+    environment: PROD
     strategy:
       matrix:
         distro:
