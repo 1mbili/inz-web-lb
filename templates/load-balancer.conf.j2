@@ -1,7 +1,7 @@
 upstream backend {
     least_conn;
     {% for host in groups['web'] %}
-        server {{ hostvars[host]['ansible_host']}}:8000;
+        server {{ hostvars[host]['private_adress']}}:8000;
     {% endfor %}
 }
 
